@@ -1,0 +1,43 @@
+.explore-categories {
+    padding: 40px 20px;
+    text-align: left; 
+}
+  
+.explore-categories-text {
+    margin: 10px 0 30px;
+    color: #555;
+    text-align: left; 
+}
+  
+.explore-categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; 
+}
+  
+.explore-categories-item {
+    cursor: pointer;
+    text-align: left;
+}
+  
+.explore-categories-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: 0.3s;
+    border: 3px solid transparent;
+    display: block; 
+}
+  
+.explore-categories-item img.active {
+    border-color: #ff4d4d;
+    transform: scale(1.05);
+}
+  
+.explore-categories-item p {
+    margin-top: 8px;
+    font-size: 16px;
+    text-align: left; 
+}
