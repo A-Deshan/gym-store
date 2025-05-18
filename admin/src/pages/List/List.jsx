@@ -65,7 +65,7 @@ const List = () => {
                 <td><img src={`${url}/uploads/${item.image}`} alt={item.name} width="50" /></td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
-                <td>${item.price}</td>
+                <td>Rs.{item.price}</td>
                 <td><button onClick={() => removeProduct(item.id)}>Remove</button></td>
               </tr>
             ))}
