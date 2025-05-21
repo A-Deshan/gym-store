@@ -7,13 +7,10 @@ import { assets, url, currency } from '../../assets/assets';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
 
-  // Fetch all orders from API
+  // Fetch all orders from API 
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get(`${url}/api/order/list`, {
-        headers: { token: localStorage.getItem('adminToken') },
-      });
-
+      const response = await axios.get(`${url}/api/order/list`);
       if (response.data.success) {
         setOrders([...response.data.data].reverse());
       } else {
@@ -24,16 +21,15 @@ const Orders = () => {
     }
   };
 
-  // Update order status
+  // Update order status 
   const statusHandler = async (event, orderId) => {
     try {
       const response = await axios.post(
-        `${url}/order/status`,
+        `http://localhost:4000/api/order/update`,
         {
           orderId,
           status: event.target.value,
-        },
-        { headers: { token: localStorage.getItem('adminToken') } }
+        }
       );
 
       if (response.data.success) {
@@ -43,6 +39,7 @@ const Orders = () => {
         toast.error('Error updating status');
       }
     } catch (error) {
+      console.error("Failed to update order status:", error.response || error.message || error);
       toast.error('Failed to update order status');
     }
   };

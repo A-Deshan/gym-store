@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.post("/placecod", placeCodOrder);
-router.post("/place", placeStripeOrder); // Stripe route
+router.post("/place", placeStripeOrder); 
 router.get("/list", listOrders);
 router.post("/update", updateStatus);
 router.post("/userorders", userOrders);
