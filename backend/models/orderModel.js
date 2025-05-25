@@ -38,10 +38,10 @@ const Order = sequelize.define("Order", {
     type: DataTypes.DATE, 
     defaultValue: DataTypes.NOW 
   },
-  payment: { 
-    type: DataTypes.BOOLEAN, 
-    defaultValue: false 
-  },
+  payment: {
+  type: DataTypes.STRING,
+  allowNull: false
+},
 });
 
 export default Order;

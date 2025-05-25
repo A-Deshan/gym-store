@@ -18,6 +18,7 @@ const Orders = () => {
       }
     } catch (error) {
       toast.error('Failed to fetch orders');
+      console.error('Fetch error:', error);
     }
   };
 
@@ -73,20 +74,20 @@ const Orders = () => {
       <div className="order-list">
         {orders.length > 0 ? (
           currentOrders.map((order, index) => {
-            const itemsArray = JSON.parse(order.items || '[]');
+            const itemsArray = order.items || [];
 
             return (
               <div key={order.id || index} className="order-item">
                 <div className="order-user-info">
                   <p className="order-item-id">Order ID: {order.id}</p>
-                  <p className="order-item-name">
-                    User ID: {order.userId}
-                  </p>
+                  <p className="order-item-name">User ID: {order.userId}</p>
                   <p>
-                    {order.date ? new Date(order.date).toLocaleString() : new Date(order.createdAt).toLocaleString()}
+                    {order.date
+                      ? new Date(order.date).toLocaleString()
+                      : new Date(order.createdAt).toLocaleString()}
                   </p>
                 </div>
-                
+
                 <div className="order-details">
                   <h4>Order Items:</h4>
                   {itemsArray.length > 0 ? (
@@ -104,17 +105,21 @@ const Orders = () => {
                     <p>No items in this order</p>
                   )}
                 </div>
-                
+
                 <div className="order-amount">
                   <p className="order-total">
-                    Total: {currency}{order.amount || 0}
+                    Total: {currency}
+                    {order.amount || 0}
                   </p>
                   <p>Payment: {order.payment ? 'Completed' : 'Pending'}</p>
                 </div>
-                
+
                 <div className="order-status">
                   <label>Status: </label>
-                  <select onChange={(e) => statusHandler(e, order.id)} value={order.status || 'Processing'}>
+                  <select
+                    onChange={(e) => statusHandler(e, order.id)}
+                    value={order.status || 'Processing'}
+                  >
                     <option value="Processing">Processing</option>
                     <option value="Shipped">Shipped</option>
                     <option value="Delivered">Delivered</option>
@@ -126,20 +131,21 @@ const Orders = () => {
         ) : (
           <p>No orders found</p>
         )}
+
         {/* Pagination controls */}
         <div className="pagination-controls">
           {orders.length > 0 && (
             <>
-              <button 
-                onClick={() => handlePageChange('prev')} 
+              <button
+                onClick={() => handlePageChange('prev')}
                 disabled={currentPage === 1}
                 className="pagination-btn"
               >
                 Previous
               </button>
               <span className="page-indicator">Page {currentPage}</span>
-              <button 
-                onClick={() => handlePageChange('next')} 
+              <button
+                onClick={() => handlePageChange('next')}
                 disabled={currentPage * itemsPerPage >= orders.length}
                 className="pagination-btn"
               >
